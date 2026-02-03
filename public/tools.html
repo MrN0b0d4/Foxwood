@@ -1,0 +1,1012 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Tools</title>
+    <style>
+        :root {
+            --primary: #0891b2;
+            --secondary: #64748b;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+        
+        h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 16px;
+            margin: 15px 0 10px;
+            color: var(--secondary);
+        }
+        
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        
+        input[type="number"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0c8599;
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #475569;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #15803d;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+            background: var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            height: 24px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-box {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .results-container {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            background: var(--light);
+        }
+        
+        .result-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .result-item.success {
+            border-left-color: var(--success);
+        }
+        
+        .result-item.error {
+            border-left-color: var(--danger);
+        }
+        
+        .log-entry {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 12px;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            word-break: break-all;
+        }
+        
+        .log-time {
+            color: var(--secondary);
+            font-size: 11px;
+            margin-right: 10px;
+        }
+        
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .alert-info {
+            background: #e0f2fe;
+            color: #0369a1;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+            border-left: 4px solid var(--success);
+        }
+        
+        .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .prize-info {
+            font-size: 11px;
+            color: var(--secondary);
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>🛠️ Manual Tools</h1>
+                <a href="/" class="back-link">← Back to Dashboard</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="alert alert-info">
+            <strong>ℹ️ Note:</strong> These tools use the JWT token from the main dashboard. 
+            Manual spinner will check for free spins first, and buy spins if needed.
+        </div>
+        
+        <div class="grid">
+            <!-- Spinner Tool -->
+            <div class="card">
+                <h2>🎰 Manual Spinner (with Buy Logic)</h2>
+                <p style="color: var(--secondary); margin-bottom: 20px; font-size: 14px;">
+                    Execute multiple spins with proper logic: checks free spins first, buys if needed, then spins.
+                    Each spin costs 1000 silvercoins if no free spin is available.
+                </p>
+                
+                <div class="form-group">
+                    <label for="spinCount">Number of spins:</label>
+                    <input type="number" id="spinCount" min="1" max="100" value="10">
+                    <small style="color: var(--secondary); display: block; margin-top: 4px;">
+                        Estimated time: ~2.7 seconds per spin
+                    </small>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="startSpinsBtn" class="btn btn-primary">
+                        <span id="spinIcon">🎰</span> Start Spinning
+                    </button>
+                    <button id="stopSpinsBtn" class="btn btn-danger" disabled>
+                        ⏹️ Stop
+                    </button>
+                    <button id="checkFundsBtn" class="btn btn-secondary">
+                        💰 Check Funds
+                    </button>
+                </div>
+                
+                <div id="spinProgress" class="progress-container" style="display: none;">
+                    <div class="progress-bar" id="spinProgressBar"></div>
+                </div>
+                
+                <div id="spinStats" class="stats-grid" style="display: none;">
+                    <div class="stat-box">
+                        <div class="stat-value" id="completedSpins">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="successfulSpins">0</div>
+                        <div class="stat-label">Successful</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="failedSpins">0</div>
+                        <div class="stat-label">Failed</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="estimatedTime">0s</div>
+                        <div class="stat-label">Est. Time</div>
+                    </div>
+                </div>
+                
+                <div id="summaryStats" class="stats-grid" style="display: none; margin-top: 10px;">
+                    <div class="stat-box">
+                        <div class="stat-value" id="initialFunds">0</div>
+                        <div class="stat-label">Initial Funds</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="finalFunds">0</div>
+                        <div class="stat-label">Final Funds</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="fundsSpent">0</div>
+                        <div class="stat-label">Silver Spent</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="returnPercent">0%</div>
+                        <div class="stat-label">Return %</div>
+                    </div>
+                </div>
+                
+                <h3>Results:</h3>
+                <div id="spinResults" class="results-container">
+                    <div style="text-align: center; color: var(--secondary); padding: 20px;">
+                        No spins executed yet. Results will appear here.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pack Opener Tool -->
+            <div class="card">
+                <h2>📦 Pack Opener</h2>
+                <p style="color: var(--secondary); margin-bottom: 20px; font-size: 14px;">
+                    Find and open packs by name. Packs are sorted by ID (lowest first).
+                </p>
+                
+                <div class="form-group">
+                    <label for="packName">Pack name to search:</label>
+                    <input type="text" id="packName" value="IEM Chengdu Groups Standard 2025">
+                </div>
+                
+                <div class="form-group">
+                    <label for="packsToOpen">Packs to open (max):</label>
+                    <input type="number" id="packsToOpen" min="1" max="50" value="5">
+                </div>
+                
+                <div class="btn-group">
+                    <button id="findPacksBtn" class="btn btn-primary">
+                        <span id="findIcon">🔍</span> Find Packs
+                    </button>
+                    <button id="openPacksBtn" class="btn btn-success" disabled>
+                        <span id="openIcon">📦</span> Open Packs
+                    </button>
+                    <button id="stopPacksBtn" class="btn btn-danger" disabled>
+                        ⏹️ Stop
+                    </button>
+                </div>
+                
+                <div id="packProgress" class="progress-container" style="display: none;">
+                    <div class="progress-bar" id="packProgressBar"></div>
+                </div>
+                
+                <div id="packInfo" style="display: none; margin-top: 20px;">
+                    <h3>Available Packs:</h3>
+                    <div id="packList" class="results-container" style="max-height: 200px;">
+                        Loading packs...
+                    </div>
+                </div>
+                
+                <h3>Opening Results:</h3>
+                <div id="packResults" class="results-container">
+                    <div style="text-align: center; color: var(--secondary); padding: 20px;">
+                        No packs opened yet.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Status Panel -->
+        <div class="card" style="margin-top: 30px;">
+            <h2>📊 System Status</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="jwtStatus">❓</div>
+                    <div class="stat-label">JWT Status</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="activeStatus">❓</div>
+                    <div class="stat-label">User Active</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="fundsStatus">0</div>
+                    <div class="stat-label">Current Funds</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="lastUpdate">—</div>
+                    <div class="stat-label">Last Update</div>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 20px;">Recent Activity:</h3>
+            <div id="statusLogs" class="results-container" style="max-height: 200px;">
+                Loading activity...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let isSpinning = false;
+        let isOpeningPacks = false;
+        let stopRequested = false;
+        let availablePacks = [];
+        
+        // Prize mapping (same as 34.spin.html)
+        const prizeMap = {
+            11755: "5,000 Silvercoins",
+            11750: "Core Standard Pack",
+            11749: "500 Silvercoins",
+            11754: "1,000,000 Silvercoins",
+            11753: "100,000 Silvercoins",
+            11752: "2,500 Silvercoins",
+            11782: "Core Refresh Pack",
+            11881: "IEM Krakow: Players Pack",
+            11751: "1,000 Silvercoins"
+        };
+        
+        // Status update
+        async function updateStatus() {
+            try {
+                const response = await fetch('/api/user');
+                if (!response.ok) throw new Error('Failed to fetch status');
+                const data = await response.json();
+                
+                // Update status indicators
+                document.getElementById('jwtStatus').textContent = data.jwtToken ? '✅' : '❌';
+                document.getElementById('activeStatus').textContent = data.isActive ? '✅' : '❌';
+                document.getElementById('fundsStatus').textContent = data.lastFunds?.toLocaleString() || '0';
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+                
+            } catch (error) {
+                console.error('Failed to update status:', error);
+            }
+        }
+        
+        // Update activity logs
+        async function updateActivityLogs() {
+            try {
+                const response = await fetch('/api/activity?limit=10');
+                if (!response.ok) throw new Error('Failed to fetch logs');
+                const logs = await response.json();
+                
+                const container = document.getElementById('statusLogs');
+                if (logs.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; color: var(--secondary); padding: 10px;">No recent activity</div>';
+                    return;
+                }
+                
+                const html = logs.map(log => `
+                    <div class="log-entry">
+                        <span class="log-time">[${new Date(log.timestamp).toLocaleTimeString()}]</span>
+                        ${log.message}
+                    </div>
+                `).join('');
+                
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('Failed to fetch logs:', error);
+            }
+        }
+        
+        // Execute multiple spins with proper logic
+        async function executeMultipleSpins(count) {
+            if (isSpinning) return;
+            
+            isSpinning = true;
+            stopRequested = false;
+            
+            const startBtn = document.getElementById('startSpinsBtn');
+            const stopBtn = document.getElementById('stopSpinsBtn');
+            const progress = document.getElementById('spinProgress');
+            const progressBar = document.getElementById('spinProgressBar');
+            const stats = document.getElementById('spinStats');
+            const summaryStats = document.getElementById('summaryStats');
+            const results = document.getElementById('spinResults');
+            
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            progress.style.display = 'block';
+            stats.style.display = 'grid';
+            summaryStats.style.display = 'none';
+            
+            // Reset UI
+            results.innerHTML = '';
+            document.getElementById('completedSpins').textContent = '0';
+            document.getElementById('successfulSpins').textContent = '0';
+            document.getElementById('failedSpins').textContent = '0';
+            document.getElementById('estimatedTime').textContent = `${Math.round(count * 2.7)}s`;
+            
+            // Create initial status message
+            const statusMsg = document.createElement('div');
+            statusMsg.className = 'result-item';
+            statusMsg.innerHTML = `<strong>Starting ${count} spins with buy logic...</strong><br>
+                                  <small>Checking free spins and buying if needed (1000 silvercoins per spin)</small>`;
+            results.appendChild(statusMsg);
+            
+            try {
+                // Execute multiple spins via proxy
+                const response = await fetch('/api/proxy/multiple-spins', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ count })
+                });
+                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.error || 'Failed to execute spins');
+                }
+                
+                // Display individual results
+                data.results.forEach((result, index) => {
+                    const resultDiv = document.createElement('div');
+                    
+                    if (result.success) {
+                        resultDiv.className = 'result-item success';
+                        const prizeName = prizeMap[result.prizeId] || `ID = ${result.prizeId}`;
+                        resultDiv.innerHTML = `
+                            <strong>Spin ${result.spin}:</strong> ${prizeName}
+                            <div class="prize-info">${new Date(result.timestamp).toLocaleTimeString()}</div>
+                        `;
+                    } else {
+                        resultDiv.className = 'result-item error';
+                        resultDiv.innerHTML = `
+                            <strong>Spin ${result.spin}:</strong> Failed
+                            <div class="prize-info">Error: ${result.error || 'Unknown error'}</div>
+                        `;
+                    }
+                    
+                    results.appendChild(resultDiv);
+                });
+                
+                // Update progress bar
+                progressBar.style.width = '100%';
+                progressBar.textContent = '100%';
+                
+                // Update statistics
+                document.getElementById('completedSpins').textContent = data.summary.totalRequested;
+                document.getElementById('successfulSpins').textContent = data.summary.successful;
+                document.getElementById('failedSpins').textContent = data.summary.failed;
+                
+                // Show summary
+                summaryStats.style.display = 'grid';
+                document.getElementById('initialFunds').textContent = data.summary.initialFunds?.toLocaleString() || '0';
+                document.getElementById('finalFunds').textContent = data.summary.finalFunds?.toLocaleString() || '0';
+                document.getElementById('fundsSpent').textContent = data.summary.fundsSpent?.toLocaleString() || '0';
+                document.getElementById('returnPercent').textContent = `${data.summary.returnPercentage}%`;
+                
+                // Add summary to results
+                const summaryDiv = document.createElement('div');
+                summaryDiv.className = 'result-item';
+                summaryDiv.innerHTML = `
+                    <strong>Summary:</strong><br>
+                    • Total spins: ${data.summary.totalRequested}<br>
+                    • Successful: ${data.summary.successful}<br>
+                    • Failed: ${data.summary.failed}<br>
+                    • Initial funds: ${data.summary.initialFunds?.toLocaleString() || '0'} silvercoins<br>
+                    • Final funds: ${data.summary.finalFunds?.toLocaleString() || '0'} silvercoins<br>
+                    • Silver spent: ${data.summary.fundsSpent?.toLocaleString() || '0'} silvercoins<br>
+                    • Return: ${data.summary.returnPercentage}%<br>
+                    <small>Completed at ${new Date().toLocaleTimeString()}</small>
+                `;
+                results.appendChild(summaryDiv);
+                
+                // Update funds status
+                document.getElementById('fundsStatus').textContent = data.summary.finalFunds?.toLocaleString() || '0';
+                
+            } catch (error) {
+                console.error('Spin execution error:', error);
+                
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'result-item error';
+                errorDiv.innerHTML = `
+                    <strong>Error:</strong> ${error.message}<br>
+                    <small>${new Date().toLocaleTimeString()}</small>
+                `;
+                results.appendChild(errorDiv);
+            }
+            
+            // Scroll to bottom
+            results.scrollTop = results.scrollHeight;
+            
+            // Reset UI
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            isSpinning = false;
+        }
+        
+        // Manual single spin (for testing)
+        async function executeSingleSpin() {
+            try {
+                const response = await fetch('/api/proxy/manual-spin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json();
+                
+                const results = document.getElementById('spinResults');
+                const resultDiv = document.createElement('div');
+                
+                if (data.success) {
+                    resultDiv.className = 'result-item success';
+                    const prizeName = prizeMap[data.prizeId] || `ID = ${data.prizeId}`;
+                    resultDiv.innerHTML = `
+                        <strong>Manual Spin:</strong> ${prizeName}
+                        <div class="prize-info">${new Date().toLocaleTimeString()}</div>
+                    `;
+                } else {
+                    resultDiv.className = 'result-item error';
+                    resultDiv.innerHTML = `
+                        <strong>Manual Spin Failed:</strong> ${data.error}
+                        <div class="prize-info">${new Date().toLocaleTimeString()}</div>
+                    `;
+                }
+                
+                results.appendChild(resultDiv);
+                results.scrollTop = results.scrollHeight;
+                
+            } catch (error) {
+                console.error('Single spin error:', error);
+            }
+        }
+        
+        // Pack functions
+        async function findPacks() {
+            const packName = document.getElementById('packName').value.trim();
+            if (!packName) {
+                alert('Please enter a pack name');
+                return;
+            }
+            
+            const findBtn = document.getElementById('findPacksBtn');
+            const openBtn = document.getElementById('openPacksBtn');
+            const packInfo = document.getElementById('packInfo');
+            const packList = document.getElementById('packList');
+            
+            findBtn.disabled = true;
+            findBtn.innerHTML = '<span class="loading"></span> Searching...';
+            
+            try {
+                // Get packs via proxy
+                const response = await fetch('/api/proxy/packs');
+                if (!response.ok) throw new Error('Failed to fetch packs');
+                
+                const data = await response.json();
+                
+                if (!data.success || !data.data?.packs) {
+                    throw new Error('Invalid response from server');
+                }
+                
+                // Filter by name and sort by ID
+                availablePacks = data.data.packs
+                    .filter(pack => pack.packTemplate?.name === packName)
+                    .sort((a, b) => a.id - b.id);
+                
+                // Update UI
+                packInfo.style.display = 'block';
+                
+                if (availablePacks.length === 0) {
+                    packList.innerHTML = `<div style="text-align: center; color: var(--secondary); padding: 20px;">
+                        No packs found with name "${packName}"
+                    </div>`;
+                    openBtn.disabled = true;
+                } else {
+                    const packHtml = availablePacks.map(pack => `
+                        <div class="result-item" style="margin-bottom: 5px;">
+                            <strong>ID:</strong> ${pack.id}<br>
+                            <small>Template: ${pack.packTemplate?.name || 'Unknown'}</small>
+                        </div>
+                    `).join('');
+                    
+                    packList.innerHTML = packHtml;
+                    openBtn.disabled = false;
+                    
+                    // Update max value for packs to open
+                    const packsToOpenInput = document.getElementById('packsToOpen');
+                    packsToOpenInput.max = availablePacks.length;
+                    if (parseInt(packsToOpenInput.value) > availablePacks.length) {
+                        packsToOpenInput.value = availablePacks.length;
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Failed to find packs:', error);
+                alert(`Error finding packs: ${error.message}`);
+            } finally {
+                findBtn.disabled = false;
+                findBtn.innerHTML = '<span id="findIcon">🔍</span> Find Packs';
+            }
+        }
+        
+        async function openPacks() {
+            if (isOpeningPacks || availablePacks.length === 0) return;
+            
+            const count = parseInt(document.getElementById('packsToOpen').value);
+            if (isNaN(count) || count < 1 || count > availablePacks.length) {
+                alert(`Please enter a valid number between 1 and ${availablePacks.length}`);
+                return;
+            }
+            
+            isOpeningPacks = true;
+            stopRequested = false;
+            
+            const openBtn = document.getElementById('openPacksBtn');
+            const stopBtn = document.getElementById('stopPacksBtn');
+            const progress = document.getElementById('packProgress');
+            const progressBar = document.getElementById('packProgressBar');
+            const results = document.getElementById('packResults');
+            
+            openBtn.disabled = true;
+            stopBtn.disabled = false;
+            progress.style.display = 'block';
+            
+            // Reset UI
+            results.innerHTML = '';
+            
+            let opened = 0;
+            
+            // Open packs
+            for (let i = 0; i < count && i < availablePacks.length && !stopRequested; i++) {
+                const pack = availablePacks[i];
+                
+                // Update progress
+                opened++;
+                const progressPercent = (opened / count) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+                progressBar.textContent = `${Math.round(progressPercent)}%`;
+                
+                try {
+                    // Open pack via proxy
+                    const response = await fetch('/api/proxy/open-pack', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ packId: pack.id })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'result-item success';
+                    
+                    if (result.data?.cards) {
+                        resultDiv.innerHTML = `
+                            <strong>Pack ${opened} (ID: ${pack.id}):</strong><br>
+                            <small>${result.data.cards.length} cards received</small><br>
+                            <small>${new Date().toLocaleTimeString()}</small>
+                        `;
+                    } else {
+                        resultDiv.innerHTML = `
+                            <strong>Pack ${opened} (ID: ${pack.id}):</strong> Opened<br>
+                            <small>${new Date().toLocaleTimeString()}</small>
+                        `;
+                    }
+                    
+                    results.appendChild(resultDiv);
+                    
+                } catch (error) {
+                    console.error('Failed to open pack:', error);
+                    
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'result-item error';
+                    resultDiv.innerHTML = `
+                        <strong>Pack ${opened} (ID: ${pack.id}):</strong> Failed to open<br>
+                        <small>Error: ${error.message}</small><br>
+                        <small>${new Date().toLocaleTimeString()}</small>
+                    `;
+                    results.appendChild(resultDiv);
+                }
+                
+                // Scroll to bottom
+                results.scrollTop = results.scrollHeight;
+                
+                // Delay between openings
+                if (i < count - 1 && !stopRequested) {
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                }
+            }
+            
+            // Remove opened packs from available list
+            availablePacks = availablePacks.slice(opened);
+            
+            // Update pack list display
+            const packList = document.getElementById('packList');
+            if (availablePacks.length === 0) {
+                packList.innerHTML = `<div style="text-align: center; color: var(--secondary); padding: 20px;">
+                    All packs opened
+                </div>`;
+                openBtn.disabled = true;
+            } else {
+                const packHtml = availablePacks.map(pack => `
+                    <div class="result-item" style="margin-bottom: 5px;">
+                        <strong>ID:</strong> ${pack.id}<br>
+                        <small>Template: ${pack.packTemplate?.name || 'Unknown'}</small>
+                    </div>
+                `).join('');
+                
+                packList.innerHTML = packHtml;
+                
+                // Update max value
+                const packsToOpenInput = document.getElementById('packsToOpen');
+                packsToOpenInput.max = availablePacks.length;
+                if (parseInt(packsToOpenInput.value) > availablePacks.length) {
+                    packsToOpenInput.value = availablePacks.length;
+                }
+            }
+            
+            // Reset UI
+            openBtn.disabled = false;
+            stopBtn.disabled = true;
+            progress.style.display = 'none';
+            isOpeningPacks = false;
+        }
+        
+        // Check funds function
+        async function checkFunds() {
+            const btn = document.getElementById('checkFundsBtn');
+            const originalText = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> Checking...';
+            
+            try {
+                const response = await fetch('/api/check-funds', { method: 'POST' });
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('fundsStatus').textContent = data.funds?.toLocaleString() || '0';
+                    
+                    // Show result
+                    const results = document.getElementById('spinResults');
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'result-item success';
+                    resultDiv.innerHTML = `
+                        <strong>Funds Check:</strong> ${data.funds?.toLocaleString() || '0'} silvercoins<br>
+                        <small>${new Date().toLocaleTimeString()}</small>
+                    `;
+                    results.appendChild(resultDiv);
+                    results.scrollTop = results.scrollHeight;
+                } else {
+                    throw new Error(data.message || 'Failed to check funds');
+                }
+            } catch (error) {
+                console.error('Failed to check funds:', error);
+                alert(`Error checking funds: ${error.message}`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+        
+        // Event listeners
+        document.getElementById('startSpinsBtn').addEventListener('click', () => {
+            const count = parseInt(document.getElementById('spinCount').value);
+            if (isNaN(count) || count < 1 || count > 100) {
+                alert('Please enter a valid number of spins (1-100)');
+                return;
+            }
+            executeMultipleSpins(count);
+        });
+        
+        document.getElementById('stopSpinsBtn').addEventListener('click', () => {
+            stopRequested = true;
+            isSpinning = false;
+        });
+        
+        document.getElementById('checkFundsBtn').addEventListener('click', checkFunds);
+        
+        document.getElementById('findPacksBtn').addEventListener('click', findPacks);
+        
+        document.getElementById('openPacksBtn').addEventListener('click', openPacks);
+        
+        document.getElementById('stopPacksBtn').addEventListener('click', () => {
+            stopRequested = true;
+            isOpeningPacks = false;
+        });
+        
+        // Initialize
+        updateStatus();
+        updateActivityLogs();
+        
+        // Auto-update status every 10 seconds
+        setInterval(() => {
+            updateStatus();
+            updateActivityLogs();
+        }, 10000);
+    </script>
+</body>
+</html>
